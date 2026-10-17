@@ -1,0 +1,35 @@
+{
+  "id": "celulas",
+  "titulo": "Células",
+  "descricao": "Conheça a célula animal e a célula vegetal.",
+  "atividades": [
+    {
+      "id": "explorar",
+      "motor": "explorar",
+      "titulo": "Explorar a célula",
+      "descricao": "Veja cada parte da célula.",
+      "status": "ativo",
+      "config": {
+        "itens": "organelas.json",
+        "cenas": [
+          { "id": "animal", "titulo": "Célula animal", "imagem": "celula-animal.svg" },
+          { "id": "vegetal", "titulo": "Célula vegetal", "imagem": "celula-vegetal.svg" }
+        ]
+      }
+    },
+    {
+      "id": "classificar",
+      "motor": "classificar",
+      "titulo": "Animal ou vegetal?",
+      "descricao": "Diga onde cada parte aparece.",
+      "status": "em-breve"
+    },
+    {
+      "id": "montar",
+      "motor": "montar",
+      "titulo": "Monte a célula",
+      "descricao": "Coloque cada parte no lugar certo.",
+      "status": "em-breve"
+    }
+  ]
+}

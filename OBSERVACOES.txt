@@ -1,0 +1,9 @@
+[17/10/2026] No celular, a célula fica pequena quando está separada (exploded view),
+porque as peças precisam de espaço em volta. Ideias: zoom de pinça ou mostrar a célula
+em tela cheia.
+
+[17/10/2026] No computador, a figura da célula ocupa mais que a altura da tela e precisa
+de um pouco de rolagem. Ideia: diminuir a faixa verde nas telas de atividade.
+
+[17/10/2026] O corte do núcleo nas duas células ainda lembra um pouco um olho.
+Dá para refinar o desenho depois.

@@ -1,0 +1,6 @@
+[
+  { "id": "celulas", "titulo": "Células", "descricao": "Conheça a célula animal e a célula vegetal.", "icone": "celula", "status": "ativo" },
+  { "id": "corpo-humano", "titulo": "Corpo humano", "descricao": "Órgãos e sistemas do corpo.", "icone": "corpo", "status": "em-breve" },
+  { "id": "plantas", "titulo": "Plantas", "descricao": "Partes da planta e fotossíntese.", "icone": "planta", "status": "em-breve" },
+  { "id": "animais", "titulo": "Animais", "descricao": "Grupos de animais e onde vivem.", "icone": "animal", "status": "em-breve" }
+]

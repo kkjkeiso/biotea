@@ -1,0 +1,89 @@
+[
+  {
+    "id": "membrana",
+    "nome": "Membrana plasmática",
+    "descricao": "É uma camada fina que envolve a célula.",
+    "funcao": "Controla o que entra e o que sai da célula.",
+    "grupos": ["animal", "vegetal"]
+  },
+  {
+    "id": "citoplasma",
+    "nome": "Citoplasma",
+    "descricao": "É o líquido dentro da célula. As organelas ficam nele.",
+    "funcao": "Guarda as organelas. Muitas reações da célula acontecem nele.",
+    "grupos": ["animal", "vegetal"]
+  },
+  {
+    "id": "nucleo",
+    "nome": "Núcleo",
+    "descricao": "É uma parte redonda que guarda o DNA da célula.",
+    "funcao": "Controla o funcionamento da célula.",
+    "grupos": ["animal", "vegetal"]
+  },
+  {
+    "id": "nucleolo",
+    "nome": "Nucléolo",
+    "descricao": "É uma parte pequena dentro do núcleo.",
+    "funcao": "Produz as partes que formam os ribossomos.",
+    "grupos": ["animal", "vegetal"]
+  },
+  {
+    "id": "reticulo",
+    "nome": "Retículo endoplasmático",
+    "descricao": "É uma rede de canais perto do núcleo.",
+    "funcao": "Produz e transporta proteínas e lipídios (gorduras).",
+    "grupos": ["animal", "vegetal"]
+  },
+  {
+    "id": "golgi",
+    "nome": "Complexo golgiense",
+    "descricao": "É uma pilha de bolsas achatadas.",
+    "funcao": "Guarda, modifica e envia substâncias para outras partes da célula.",
+    "grupos": ["animal", "vegetal"]
+  },
+  {
+    "id": "mitocondria",
+    "nome": "Mitocôndria",
+    "descricao": "Tem forma oval e dobras por dentro.",
+    "funcao": "Produz a energia que a célula usa. Isso se chama respiração celular.",
+    "grupos": ["animal", "vegetal"]
+  },
+  {
+    "id": "lisossomo",
+    "nome": "Lisossomo",
+    "descricao": "É uma bolsa pequena e redonda.",
+    "funcao": "Digere substâncias que a célula não usa mais.",
+    "grupos": ["animal"],
+    "validar": "Plantas fazem essa função no vacúolo. Confirmar se fica só na célula animal."
+  },
+  {
+    "id": "centriolos",
+    "nome": "Centríolos",
+    "descricao": "São dois cilindros pequenos, um ao lado do outro.",
+    "funcao": "Ajudam a célula a se dividir.",
+    "grupos": ["animal"],
+    "validar": "Ausentes na maioria das plantas com flor. Confirmar se fica só na célula animal."
+  },
+  {
+    "id": "parede",
+    "nome": "Parede celular",
+    "descricao": "É uma camada firme por fora da membrana.",
+    "funcao": "Protege a célula e dá forma a ela.",
+    "grupos": ["vegetal"]
+  },
+  {
+    "id": "cloroplasto",
+    "nome": "Cloroplasto",
+    "descricao": "É uma organela verde.",
+    "funcao": "Faz a fotossíntese. Usa a luz do sol para produzir alimento.",
+    "grupos": ["vegetal"]
+  },
+  {
+    "id": "vacuolo",
+    "nome": "Vacúolo",
+    "descricao": "É uma bolsa grande cheia de água.",
+    "funcao": "Guarda água e outras substâncias. Ajuda a célula a ficar firme.",
+    "grupos": ["vegetal"],
+    "validar": "Célula animal tem vacúolos pequenos. Confirmar se fica só na célula vegetal."
+  }
+]
