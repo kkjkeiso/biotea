@@ -1,7 +1,7 @@
 import vozes from "../content/vozes.json";
 import { lerConfig, type VelocidadeVoz } from "../settings/config";
 
-const arquivos: Record<string, string> = vozes;
+const arquivos: Record<string, string> = vozes.falas;
 
 const VELOCIDADE: Record<VelocidadeVoz, number> = { devagar: 0.85, normal: 1 };
 

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { BotaoVoz } from "../components/BotaoVoz";
 import { Icone } from "../components/Icone";
-import { FALAS } from "../content/falas";
+import { APRESENTACAO, FALAS } from "../content/falas";
 import { useConfig } from "../settings/ConfigContext";
 import { podeAnimar } from "../settings/config";
 
@@ -94,7 +94,7 @@ export function Inicio() {
       <div className="conteudo apresentacao__conteudo">
         <h1 className="surgir">BioTEA</h1>
         <p className="apresentacao__subtitulo surgir">Biologia no seu ritmo.</p>
-        <p className="apresentacao__texto surgir">{FALAS.apresentacao}</p>
+        <p className="apresentacao__texto surgir">{APRESENTACAO}</p>
         <div className="apresentacao__acoes surgir">
           <Link to="/jogos" className="botao botao--claro">Começar <Icone nome="seta" /></Link>
           <Link to="/configuracoes" className="botao botao--vidro">Configurações</Link>

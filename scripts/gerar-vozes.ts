@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { FALAS, textoDaParte } from "../src/content/falas.ts";
@@ -13,9 +12,34 @@ const velocidade = "-10%";
 const PASTA_AUDIO = "public/audio";
 const PASTA_CONTEUDO = "src/content";
 const MANIFESTO = join(PASTA_CONTEUDO, "vozes.json");
+const MAX_PALAVRAS = 10;
 
-function textos() {
-  const lista = new Set<string>(Object.values(FALAS));
+interface Fala {
+  texto: string;
+  nome: string;
+}
+
+interface Manifesto {
+  voz: string;
+  velocidade: string;
+  falas: Record<string, string>;
+}
+
+function slug(texto: string) {
+  return texto
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .split(" ")
+    .slice(0, MAX_PALAVRAS)
+    .join("-");
+}
+
+function falas() {
+  const lista = new Map<string, Fala>();
+  for (const texto of Object.values(FALAS)) lista.set(texto, { texto, nome: slug(texto) });
   for (const tema of readdirSync(PASTA_CONTEUDO, { withFileTypes: true })) {
     if (!tema.isDirectory()) continue;
     for (const arquivo of readdirSync(join(PASTA_CONTEUDO, tema.name))) {
@@ -23,15 +47,31 @@ function textos() {
       const dados = JSON.parse(readFileSync(join(PASTA_CONTEUDO, tema.name, arquivo), "utf8"));
       if (!Array.isArray(dados)) continue;
       for (const item of dados) {
-        if (item?.nome && item?.descricao && item?.funcao) lista.add(textoDaParte(item));
+        if (!(item?.nome && item?.descricao && item?.funcao)) continue;
+        const texto = textoDaParte(item);
+        lista.set(texto, { texto, nome: slug(item.nome) });
       }
     }
   }
-  return [...lista];
+  return [...lista.values()];
 }
 
-function nomeDoArquivo(texto: string) {
-  return createHash("sha1").update(`${voz}|${velocidade}|${texto}`).digest("hex").slice(0, 16) + ".mp3";
+function nomearArquivos(lista: Fala[]) {
+  const usados = new Set<string>();
+  const arquivos = new Map<string, string>();
+  for (const { texto, nome } of [...lista].sort((a, b) => a.texto.localeCompare(b.texto))) {
+    let arquivo = `${nome}.mp3`;
+    for (let i = 2; usados.has(arquivo); i++) arquivo = `${nome}-${i}.mp3`;
+    usados.add(arquivo);
+    arquivos.set(texto, arquivo);
+  }
+  return arquivos;
+}
+
+function lerManifesto(): Manifesto | null {
+  if (!existsSync(MANIFESTO)) return null;
+  const dados = JSON.parse(readFileSync(MANIFESTO, "utf8"));
+  return dados?.falas ? dados : null;
 }
 
 function escaparXml(texto: string) {
@@ -56,9 +96,12 @@ async function sintetizar(texto: string) {
   return Buffer.from(await resposta.arrayBuffer());
 }
 
-const lista = textos();
-const manifesto: Record<string, string> = {};
-const faltando = lista.filter((t) => !existsSync(join(PASTA_AUDIO, nomeDoArquivo(t))));
+const arquivos = nomearArquivos(falas());
+const anterior = lerManifesto();
+const mesmaVoz = anterior?.voz === voz && anterior?.velocidade === velocidade;
+const faltando = [...arquivos].filter(
+  ([texto, arquivo]) => !mesmaVoz || anterior!.falas[texto] !== arquivo || !existsSync(join(PASTA_AUDIO, arquivo)),
+);
 
 if (faltando.length && !chave) {
   console.error("Falta AZURE_SPEECH_KEY no arquivo .env (veja .env.example).");
@@ -66,14 +109,12 @@ if (faltando.length && !chave) {
 }
 
 mkdirSync(PASTA_AUDIO, { recursive: true });
-for (const texto of faltando) {
-  const arquivo = nomeDoArquivo(texto);
+for (const [texto, arquivo] of faltando) {
   writeFileSync(join(PASTA_AUDIO, arquivo), await sintetizar(texto));
-  console.log(`gerado  ${arquivo}  ${texto.slice(0, 60)}`);
+  console.log(`gerado  ${arquivo}`);
 }
 
-for (const texto of lista.sort()) manifesto[texto] = nomeDoArquivo(texto);
-const usados = new Set(Object.values(manifesto));
+const usados = new Set(arquivos.values());
 for (const arquivo of readdirSync(PASTA_AUDIO)) {
   if (arquivo.endsWith(".mp3") && !usados.has(arquivo)) {
     unlinkSync(join(PASTA_AUDIO, arquivo));
@@ -81,5 +122,6 @@ for (const arquivo of readdirSync(PASTA_AUDIO)) {
   }
 }
 
+const manifesto: Manifesto = { voz, velocidade, falas: Object.fromEntries([...arquivos].sort(([a], [b]) => a.localeCompare(b))) };
 writeFileSync(MANIFESTO, JSON.stringify(manifesto, null, 2) + "\n");
-console.log(`${lista.length} falas, ${faltando.length} novas. Voz: ${voz}.`);
+console.log(`${arquivos.size} falas, ${faltando.length} novas. Voz: ${voz}.`);
