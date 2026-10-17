@@ -14,6 +14,7 @@
   --apresentacao-1: light-dark(#24804e, #17573a);
   --apresentacao-2: light-dark(#1a5f3d, #0f3c28);
   --apresentacao-3: light-dark(#0f3b27, #07200f);
+  --apresentacao-borda: light-dark(#1f7047, #13482e);
   --onda-clara: light-dark(#2f9a5f, #1f6e45);
   --onda-escura: light-dark(#17583a, #0b2e1d);
 
@@ -68,6 +69,7 @@
   --apresentacao-3: var(--faixa);
   --onda-clara: light-dark(#0f4a2e, #1a1a1a);
   --onda-escura: var(--onda-clara);
+  --apresentacao-borda: var(--faixa);
   --faixa-texto: #ffffff;
   --faixa-texto-suave: #ffffff;
   --fundo: light-dark(#ffffff, #000000);
