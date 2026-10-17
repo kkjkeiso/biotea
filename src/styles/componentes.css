@@ -226,7 +226,7 @@
   .apresentacao__conteudo { padding-top: 72px; padding-bottom: 72px; }
 }
 @media (pointer: coarse) {
-  html:has(.apresentacao) { background: var(--apresentacao-borda); }
+  body:has(.apresentacao) { background: var(--apresentacao-borda); }
   .apresentacao::before,
   .apresentacao::after {
     content: "";
